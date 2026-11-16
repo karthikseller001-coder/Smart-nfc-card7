@@ -345,55 +345,49 @@
       <!-- Brand Monogram Logo & Metallic Gold Title -->
       <a class="brand-header" id="brandHeaderLink" href="javascript:void(0)">
         <div class="brand-logo-box" id="logoContainer">
-          <!-- Crisp 3D Silver Monogram Logo (M + B Interlocking Ribbons with Clear Separation) -->
-          <svg viewBox="0 0 220 210" width="138" height="130" xmlns="http://www.w3.org/2000/svg">
+          <!-- Exact White/Silver Interlocking M+B Monogram Logo from Reference Photo -->
+          <svg viewBox="0 0 220 220" width="138" height="138" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <!-- Bright Metallic Silver Face -->
-              <linearGradient id="silverBright" x1="0%" y1="0%" x2="100%" y2="100%">
+              <!-- Crisp White-Silver Metallic Gradient -->
+              <linearGradient id="logoWhiteMain" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="45%" stop-color="#e8ecf2"/>
-                <stop offset="85%" stop-color="#bcc2cc"/>
-                <stop offset="100%" stop-color="#9aa0ab"/>
+                <stop offset="55%" stop-color="#f2f4f8"/>
+                <stop offset="100%" stop-color="#d5dae3"/>
               </linearGradient>
-              <!-- Medium Metallic Silver -->
-              <linearGradient id="silverMid" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#f2f5f9"/>
-                <stop offset="50%" stop-color="#c3c9d4"/>
-                <stop offset="100%" stop-color="#878d99"/>
+              <!-- Subtle Under-Fold Shading for 3D Overlap -->
+              <linearGradient id="logoWhiteFold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#dcdfe6"/>
+                <stop offset="100%" stop-color="#aeb4c0"/>
               </linearGradient>
-              <!-- Darker 3D Under-Fold Shadow -->
-              <linearGradient id="silverDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#a6acb8"/>
-                <stop offset="55%" stop-color="#757a85"/>
-                <stop offset="100%" stop-color="#4d525c"/>
-              </linearGradient>
-              <!-- Deep Crease Shadow for Overlapping Ribbons -->
-              <filter id="foldShadow" x="-15%" y="-15%" width="130%" height="130%">
-                <feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#000000" flood-opacity="0.88"/>
+              <filter id="logoShadow" x="-15%" y="-15%" width="130%" height="130%">
+                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.85"/>
               </filter>
             </defs>
 
-            <!-- 1. Left Outer Vertical Pillar of M -->
-            <polygon points="34,42 57,55 57,149 34,136" fill="url(#silverMid)" stroke="#111112" stroke-width="1.5" stroke-linejoin="round" filter="url(#foldShadow)"/>
+            <g filter="url(#logoShadow)">
+              <!-- 1. Left Vertical Pillar of M -->
+              <polygon points="36,44 59,57 59,153 36,140" fill="url(#logoWhiteMain)"/>
 
-            <!-- 2. Right Outer Vertical Pillar of M -->
-            <polygon points="163,55 186,42 186,136 163,149" fill="url(#silverMid)" stroke="#111112" stroke-width="1.5" stroke-linejoin="round" filter="url(#foldShadow)"/>
+              <!-- 2. Right Vertical Pillar of M -->
+              <polygon points="161,57 184,44 184,140 161,153" fill="url(#logoWhiteMain)"/>
 
-            <!-- 3. Top Hexagonal Crown Arch -->
-            <polygon points="65,39 110,13 155,39 155,65 110,39 85,53" fill="url(#silverBright)" stroke="#111112" stroke-width="1.5" stroke-linejoin="round" filter="url(#foldShadow)"/>
+              <!-- 3. Top Hexagonal Crown (Upper Loop) -->
+              <polygon points="66,40 110,15 154,40 154,67 132,54 110,41 88,54" fill="url(#logoWhiteMain)"/>
 
-            <!-- 4. Lower Hexagonal B-Loop (Bottom Bowl of B) -->
-            <polygon points="110,73 162,103 162,143 110,173 77,154 77,128 99,141 110,147 140,130 140,116 110,99" fill="url(#silverDark)" stroke="#111112" stroke-width="1.6" stroke-linejoin="round" filter="url(#foldShadow)"/>
+              <!-- 4. Vertical Inner Spine (Left Wall of B) -->
+              <polygon points="78,74 100,87 100,158 78,171" fill="url(#logoWhiteMain)"/>
 
-            <!-- 5. Vertical Spine of B (Cleanly Separated inside M) -->
-            <polygon points="77,74 99,87 99,141 77,154" fill="url(#silverMid)" stroke="#111112" stroke-width="1.6" stroke-linejoin="round" filter="url(#foldShadow)"/>
+              <!-- 5. Lower Hexagonal B-Loop (Bottom Diamond Bowl) -->
+              <polygon points="100,87 161,122 161,158 110,187 78,171 100,158 110,164 139,147 139,133 100,111" fill="url(#logoWhiteFold)"/>
 
-            <!-- 6. Foreground Interlocking M-Chevron & Upper B-Ribbon -->
-            <polygon points="57,55 110,86 146,65 163,55 163,81 110,112 77,93 57,81" fill="url(#silverBright)" stroke="#111112" stroke-width="1.6" stroke-linejoin="round" filter="url(#foldShadow)"/>
+              <!-- 6. Diagonal Interlocking Cross-Ribbon (Connecting Top-Left M & Upper-Right B) -->
+              <polygon points="59,57 110,87 148,65 161,57 161,83 110,113 59,83" fill="url(#logoWhiteMain)"/>
 
-            <!-- 7. Crisp Metallic Specular Edge Highlights -->
-            <polyline points="66,39 110,14 154,39" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.9"/>
-            <polyline points="35,43 57,55 110,86 163,55 185,43" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/>
+              <!-- Subtle Crisp Fold Lines where Ribbons Cross -->
+              <line x1="78" y1="94" x2="100" y2="107" stroke="#111112" stroke-width="1.4" opacity="0.65"/>
+              <line x1="128" y1="76" x2="154" y2="61" stroke="#111112" stroke-width="1.4" opacity="0.65"/>
+              <line x1="100" y1="111" x2="122" y2="124" stroke="#111112" stroke-width="1.4" opacity="0.65"/>
+            </g>
           </svg>
         </div>
 
