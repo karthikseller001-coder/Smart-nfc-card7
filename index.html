@@ -1,1 +1,704 @@
-# Smart-nfc-card7
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Portal</title>
+  <!-- Google Fonts for Luxury Gold Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Montserrat:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold-light: #fbe59b;
+      --gold-mid: #e5b343;
+      --gold-dark: #b67d1b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0b0b0c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #ffffff;
+    }
+
+    /* Luxury Dark Leather Texture Container */
+    .app-container {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background-color: #111112;
+      background-image:
+        radial-gradient(circle at 35% 32%, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.72) 72%, rgba(0, 0, 0, 0.94) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23ffffff' surfaceScale='1.6'%3E%3CfeDistantLight azimuth='45' elevation='55'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23leather)' opacity='0.14'/%3E%3C/svg%3E");
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 44px 20px 26px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Top-Right & Bottom-Left Gold & Black Silk Ribbons */
+    .ribbon-top-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 210px;
+      height: 210px;
+      pointer-events: none;
+      z-index: 1;
+      filter: drop-shadow(-4px 8px 14px rgba(0, 0, 0, 0.75));
+    }
+
+    .ribbon-bottom-left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 220px;
+      height: 165px;
+      pointer-events: none;
+      z-index: 1;
+      filter: drop-shadow(4px -6px 14px rgba(0, 0, 0, 0.75));
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      justify-content: space-evenly;
+      gap: 16px;
+    }
+
+    /* Brand Logo & Metallic Gold Title Section */
+    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .brand-logo-box {
+      width: 132px;
+      height: 118px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.85));
+    }
+
+    .brand-logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: clamp(28px, 8.2vw, 37px);
+      letter-spacing: 2px;
+      line-height: 1.1;
+      background: linear-gradient(180deg, #fff1b8 0%, #f1c75b 35%, #c98c24 70%, #fae08c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9));
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 5.5px;
+      margin-top: 6px;
+      background: linear-gradient(180deg, #fbe49b 0%, #d49b2d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9));
+      text-transform: uppercase;
+    }
+
+    .gold-arc-swoosh {
+      width: 230px;
+      height: 16px;
+      margin-top: 8px;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.85));
+    }
+
+    /* 4-Column Floating Icons Grid (No Round Circles, Direct Icons like Screenshot) */
+    .grid-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 10px;
+      width: 100%;
+      max-width: 380px;
+      margin: 12px 0;
+      justify-items: center;
+      align-items: start;
+    }
+
+    .nav-card {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 4px 2px;
+      transition: transform 0.18s ease;
+    }
+
+    .nav-card:hover { transform: translateY(-3px); }
+    .nav-card:active { transform: scale(0.93); }
+
+    .icon-box {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.85));
+    }
+
+    .icon-box img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+
+    .nav-label {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 12.5px;
+      color: #f3ce6c;
+      text-align: center;
+      line-height: 1.25;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Thank You & 5 Gold Stars Section */
+    .thankyou-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .thankyou-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 66px;
+      line-height: 1.05;
+      background: linear-gradient(180deg, #fff2be 0%, #eec255 45%, #be821c 85%, #f7da81 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.92));
+      padding: 0 10px;
+    }
+
+    .stars-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    .star-icon {
+      width: 34px;
+      height: 34px;
+      filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.9));
+      transition: transform 0.2s ease;
+    }
+
+    .star-icon:hover { transform: scale(1.16); }
+
+    .provided-by {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #e5b84b;
+      opacity: 0.72;
+      margin-top: 14px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .version-text {
+      font-size: 8px;
+      font-weight: 400;
+      color: #d4a438;
+      opacity: 0.55;
+      margin-top: 2px;
+      letter-spacing: 0.4px;
+    }
+
+    /* Session Expired Lock Screen (Matching Luxury Dark Gold Theme) */
+    .session-expired-overlay {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background-color: #111112;
+      background-image: radial-gradient(circle at 50% 45%, #1e1e20 0%, #09090a 100%);
+      padding: 32px 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .lock-badge {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: #171719;
+      border: 2.5px solid var(--gold-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    }
+
+    .expired-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: #f3ce6c;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .expired-desc {
+      font-size: 13.5px;
+      color: #b8b8be;
+      line-height: 1.6;
+      max-width: 290px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Locked / Session Expired Screen -->
+  <div class="session-expired-overlay" id="expiredOverlay">
+    <div class="lock-badge">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f1c75b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+    <h2 class="expired-title">Session Expired</h2>
+    <p class="expired-desc">Please scan the official QR code again to access this business portal.</p>
+  </div>
+
+  <!-- Main Business Portal Screen -->
+  <div class="app-container" id="mainAppContainer">
+    
+    <!-- Top Right Luxury Gold & Black Ribbon -->
+    <svg class="ribbon-top-right" viewBox="0 0 220 220" fill="none">
+      <defs>
+        <linearGradient id="goldRibbon1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#9e6b16"/>
+          <stop offset="35%" stop-color="#fae08c"/>
+          <stop offset="65%" stop-color="#d4982a"/>
+          <stop offset="100%" stop-color="#7c510d"/>
+        </linearGradient>
+        <linearGradient id="blackSilk1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2b2b2e"/>
+          <stop offset="50%" stop-color="#0d0d0e"/>
+          <stop offset="100%" stop-color="#1f1f22"/>
+        </linearGradient>
+      </defs>
+      <!-- Sweeping Gold Back Ribbon -->
+      <path d="M62 0 C110 38, 178 46, 220 112 L220 92 C182 32, 122 24, 86 0 Z" fill="url(#goldRibbon1)"/>
+      <!-- Black Silk Fold -->
+      <path d="M84 0 C124 30, 184 36, 220 96 L220 0 Z" fill="url(#blackSilk1)"/>
+      <!-- Inner Gold Highlight Edge -->
+      <path d="M135 0 C162 28, 195 52, 220 132 L220 118 C196 44, 168 22, 148 0 Z" fill="url(#goldRibbon1)"/>
+    </svg>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+      
+      <!-- Brand Monogram Logo & Metallic Gold Title -->
+      <a class="brand-header" id="brandHeaderLink" href="javascript:void(0)">
+        <div class="brand-logo-box" id="logoContainer">
+          <!-- Default 3D Silver Geometric Monogram Emblem (Matching Screenshot) -->
+          <svg viewBox="0 0 200 180" width="128" height="116" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="silverLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="50%" stop-color="#d7d9de"/>
+                <stop offset="100%" stop-color="#9ca0a8"/>
+              </linearGradient>
+              <linearGradient id="silverShade" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#b4b8c0"/>
+                <stop offset="100%" stop-color="#6e727a"/>
+              </linearGradient>
+            </defs>
+            <!-- Outer Hexagon Frame -->
+            <polygon points="100,14 166,52 166,128 100,166 34,128 34,52" fill="none" stroke="url(#silverLight)" stroke-width="14" stroke-linejoin="miter"/>
+            <!-- Inner Geometric Ribbon F/B/M Monogram -->
+            <path d="M34 52 L100 90 L100 166" fill="none" stroke="url(#silverShade)" stroke-width="13" stroke-linejoin="miter"/>
+            <path d="M166 52 L100 90 L136 112 L100 134" fill="none" stroke="url(#silverLight)" stroke-width="13" stroke-linejoin="miter"/>
+            <path d="M64 34 L64 112" fill="none" stroke="url(#silverLight)" stroke-width="12"/>
+          </svg>
+        </div>
+
+        <h1 class="brand-title" id="brandTitleText">FUNKYZONE</h1>
+        <div class="brand-subtitle" id="brandSubtitleText">A FASHION BRAND</div>
+
+        <!-- Curved Gold Swoosh Underline -->
+        <svg class="gold-arc-swoosh" viewBox="0 0 260 18" fill="none">
+          <defs>
+            <linearGradient id="swooshGold" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#b9811d" stop-opacity="0"/>
+              <stop offset="25%" stop-color="#f5d16c"/>
+              <stop offset="50%" stop-color="#fff0b3"/>
+              <stop offset="75%" stop-color="#f5d16c"/>
+              <stop offset="100%" stop-color="#b9811d" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M10 15 C85 2, 175 2, 250 15 C175 7, 85 7, 10 15 Z" fill="url(#swooshGold)"/>
+        </svg>
+      </a>
+
+      <!-- 4-in-a-Row Floating Action Icons Grid -->
+      <div class="grid-buttons" id="actionButtonsGrid"></div>
+
+      <!-- Thank You & 5 Gold Stars -->
+      <div class="thankyou-section">
+        <div class="thankyou-text">Thankyou</div>
+
+        <div class="stars-row" id="starsRow">
+          <!-- 5 Metallic 3D Gold Stars -->
+          <svg class="star-icon" viewBox="0 0 36 36"><defs><linearGradient id="starGold3d" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff0ad"/><stop offset="45%" stop-color="#f1c14b"/><stop offset="100%" stop-color="#b87b16"/></linearGradient></defs><path fill="url(#starGold3d)" d="M18 2l4.8 9.7 10.7 1.6-7.7 7.5 1.8 10.7L18 26.4l-9.6 5.1 1.8-10.7-7.7-7.5 10.7-1.6z"/></svg>
+          <svg class="star-icon" viewBox="0 0 36 36"><path fill="url(#starGold3d)" d="M18 2l4.8 9.7 10.7 1.6-7.7 7.5 1.8 10.7L18 26.4l-9.6 5.1 1.8-10.7-7.7-7.5 10.7-1.6z"/></svg>
+          <svg class="star-icon" viewBox="0 0 36 36"><path fill="url(#starGold3d)" d="M18 2l4.8 9.7 10.7 1.6-7.7 7.5 1.8 10.7L18 26.4l-9.6 5.1 1.8-10.7-7.7-7.5 10.7-1.6z"/></svg>
+          <svg class="star-icon" viewBox="0 0 36 36"><path fill="url(#starGold3d)" d="M18 2l4.8 9.7 10.7 1.6-7.7 7.5 1.8 10.7L18 26.4l-9.6 5.1 1.8-10.7-7.7-7.5 10.7-1.6z"/></svg>
+          <svg class="star-icon" viewBox="0 0 36 36"><path fill="url(#starGold3d)" d="M18 2l4.8 9.7 10.7 1.6-7.7 7.5 1.8 10.7L18 26.4l-9.6 5.1 1.8-10.7-7.7-7.5 10.7-1.6z"/></svg>
+        </div>
+
+        <div class="provided-by" id="providedByText">Provided by Karthik</div>
+        <div class="version-text" id="versionText">Type your version</div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Left Luxury Gold & Black Ribbon -->
+    <svg class="ribbon-bottom-left" viewBox="0 0 220 165" fill="none">
+      <path d="M0 32 C38 82, 86 126, 152 165 L128 165 C68 128, 28 92, 0 54 Z" fill="url(#goldRibbon1)"/>
+      <path d="M0 54 C28 92, 68 128, 128 165 L0 165 Z" fill="url(#blackSilk1)"/>
+      <path d="M0 106 C38 110, 76 130, 114 165 L96 165 C64 136, 32 120, 0 118 Z" fill="url(#goldRibbon1)"/>
+    </svg>
+
+  </div>
+
+  <!-- ================= ALL-IN-ONE CONFIGURATION (ఇక్కడ మార్చుకోండి) ================= -->
+  <script>
+    const PORTAL_CONFIG = {
+      // 1. సెషన్ టైమ్ (నిమిషాలలో) - QR స్కాన్ (?scan=1) చేసినప్పుడు ఎంతసేపు పనిచేయాలో ఇవ్వండి (0 = Unlimited)
+      SESSION_MINUTES: 1,
+
+      // 2. బ్రాండ్ పేరు & ట్యాగ్‌లైన్
+      BRAND_NAME: "FUNKYZONE",
+      BRAND_SUBTITLE: "A FASHION BRAND",
+
+      // 3. లోగో చిత్రం URL (ఖాళీగా ఉంచితే డిఫాల్ట్ సిల్వర్ లోగో కనిపిస్తుంది)
+      LOGO_URL: "",
+
+      // 4. లోగో/పేరు మీద క్లిక్ చేస్తే ఎక్కడికి వెళ్ళాలో ఆ లింక్ (ఖాళీగా ఉంచితే క్లిక్ అవ్వదు)
+      LOGO_CLICK_LINK: "https://yourwebsite.com",
+
+      // 5. బటన్ల లిస్ట్ (ఏదైనా ఒక బ్లాక్ కాపీ చేసి క్రింద పేస్ట్ చేస్తే కొత్త ఐకాన్ యాడ్ అవుతుంది!)
+      // - label: ఐకాన్ క్రింద కనిపించే పేరు (\n పెడితే రెండు లైన్లలో వస్తుంది)
+      // - link: క్లిక్ చేస్తే వెళ్ళే లింక్ (ఫోన్ కాల్ కోసం "tel:+919876543210", వాట్సాప్ కోసం "https://wa.me/919876543210")
+      // - iconUrl: మీ స్వంత ఐకాన్ ఫోటో URL ఇక్కడ ఇవ్వండి (ఖాళీగా ఉంచితే క్రింది iconType ప్రకారం ఒరిజినల్ ఐకాన్ వస్తుంది)
+      // - iconType: "google", "call", "instagram", "whatsapp", "location", "website", "facebook", "youtube", "telegram", "payment"
+      // - position: ఏ స్థానంలో కనిపించాలో ఆ నంబర్ (1, 2, 3, 4, 5, 6...)
+      BUTTONS: [
+        {
+          label: "Google\nReviews",
+          link: "https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review",
+          iconUrl: "",
+          iconType: "google",
+          position: 1
+        },
+        {
+          label: "Contact\nUs",
+          link: "tel:+919876543210",
+          iconUrl: "",
+          iconType: "call",
+          position: 2
+        },
+        {
+          label: "Instagram",
+          link: "https://instagram.com/your_username",
+          iconUrl: "",
+          iconType: "instagram",
+          position: 3
+        },
+        {
+          label: "WhatsApp",
+          link: "https://wa.me/919876543210",
+          iconUrl: "",
+          iconType: "whatsapp",
+          position: 4
+        },
+        {
+          label: "Our\nLocation",
+          link: "https://maps.google.com/?q=YOUR_STORE_LOCATION",
+          iconUrl: "",
+          iconType: "location",
+          position: 5
+        }
+      ],
+
+      // 6. క్రింద కనిపించే పేరు
+      PROVIDED_BY: "Provided by Karthik",
+
+      // 7. వెర్షన్ కోడ్ (చిన్న అక్షరాలతో క్రింద కనిపిస్తుంది)
+      VERSION_TEXT: "Type your version"
+    };
+
+    // ================= BUILT-IN HIGH-DETAIL ICONS LIBRARY =================
+    const BUILTIN_ICONS = {
+      google: `<svg width="48" height="48" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>`,
+      call: `<svg width="46" height="46" viewBox="0 0 24 24" fill="#ffffff"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>`,
+      instagram: `<svg width="50" height="50" viewBox="0 0 24 24" fill="none"><defs><radialGradient id="igLux" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#igLux)"/><circle cx="12" cy="12" r="4.3" stroke="#ffffff" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.2" fill="#ffffff"/></svg>`,
+      whatsapp: `<svg width="52" height="52" viewBox="0 0 32 32" fill="none"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.5L3 29l6.7-1.7c1.9 1 4.1 1.6 6.3 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3z"/><path fill="#ffffff" d="M22.9 19.3c-.3-.2-2-.9-2.3-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 2-.8 2.2-1.6.3-.8.3-1.4.2-1.6-.1-.1-.3-.2-.6-.4z"/></svg>`,
+      location: `<svg width="52" height="52" viewBox="0 0 48 48" fill="none"><polygon points="10,33 38,33 44,43 4,43" fill="#34A853"/><polygon points="14,33 24,33 18,43 4,43" fill="#1E8E3E"/><polygon points="24,33 34,33 44,43 30,43" fill="#4285F4"/><path d="M24 5C16.8 5 11 10.8 11 18c0 9.6 13 22 13 22s13-12.4 13-22c0-7.2-5.8-13-13-13z" fill="#EA4335"/><path d="M24 5v35s13-12.4 13-22c0-7.2-5.8-13-13-13z" fill="#4285F4"/><path d="M11 18c0 4.2 2.5 8.8 5.4 12.7L24 23V5c-7.2 0-13 5.8-13 13z" fill="#FBBC05"/><circle cx="24" cy="18" r="5.5" fill="#ffffff"/></svg>`,
+      website: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f3ce6c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+      facebook: `<svg width="50" height="50" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.5" fill="#1877F2"/><path fill="#ffffff" d="M15.1 12.8l.4-2.6h-2.5V8.5c0-.7.3-1.4 1.5-1.4h1.1V4.9s-1-.2-2-.2c-2 0-3.3 1.2-3.3 3.4v2H8v2.6h2.3V19h2.7v-6.2h2.1z"/></svg>`,
+      youtube: `<svg width="50" height="50" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="4.2" fill="#FF0000"/><polygon points="10,9 16,12 10,15" fill="#ffffff"/></svg>`,
+      telegram: `<svg width="50" height="50" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.5" fill="#26A5E4"/><path fill="#ffffff" d="M17.5 7.5L5.8 12c-.8.3-.8.8-.1 1l3 .9 6.9-4.4c.3-.2.6-.1.4.1l-5.6 5.1-.2 3.1c.3 0 .4-.1.6-.3l1.5-1.4 3.1 2.3c.6.3 1 .1 1.1-.5l2-9.5c.2-.8-.3-1.2-1-.9z"/></svg>`,
+      payment: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f3ce6c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><line x1="2" y1="10" x2="22" y2="10"/></svg>`
+    };
+
+    // ================= APPLY BRAND SETTINGS & RENDER DYNAMIC BUTTONS =================
+    document.getElementById("brandTitleText").textContent = PORTAL_CONFIG.BRAND_NAME || "FUNKYZONE";
+    document.getElementById("brandSubtitleText").textContent = PORTAL_CONFIG.BRAND_SUBTITLE || "";
+
+    const logoEl = document.getElementById("logoContainer");
+    if (PORTAL_CONFIG.LOGO_URL && PORTAL_CONFIG.LOGO_URL.trim() !== "") {
+      logoEl.innerHTML = `<img src="${PORTAL_CONFIG.LOGO_URL.trim()}" alt="Brand Logo">`;
+    }
+
+    const brandHeaderLink = document.getElementById("brandHeaderLink");
+    if (PORTAL_CONFIG.LOGO_CLICK_LINK && PORTAL_CONFIG.LOGO_CLICK_LINK.trim() !== "") {
+      brandHeaderLink.href = PORTAL_CONFIG.LOGO_CLICK_LINK.trim();
+      brandHeaderLink.target = "_blank";
+      brandHeaderLink.rel = "noopener noreferrer";
+    } else {
+      brandHeaderLink.style.pointerEvents = "none";
+    }
+
+    document.getElementById("providedByText").textContent = PORTAL_CONFIG.PROVIDED_BY;
+    document.getElementById("versionText").textContent = PORTAL_CONFIG.VERSION_TEXT;
+
+    // బటన్లను డైనమిక్‌గా నిర్మించడం
+    (function renderActionButtons() {
+      const grid = document.getElementById("actionButtonsGrid");
+      if (!grid || !Array.isArray(PORTAL_CONFIG.BUTTONS)) return;
+
+      const sortedButtons = [...PORTAL_CONFIG.BUTTONS].sort(
+        (a, b) => (Number(a.position) || 99) - (Number(b.position) || 99)
+      );
+
+      let firstReviewBtn = null;
+
+      sortedButtons.forEach((btn, idx) => {
+        const a = document.createElement("a");
+        a.className = "nav-card";
+        a.href = btn.link || "#";
+
+        if (!String(btn.link).startsWith("tel:")) {
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+        }
+
+        const iconBox = document.createElement("div");
+        iconBox.className = "icon-box";
+
+        if (btn.iconUrl && btn.iconUrl.trim() !== "") {
+          const img = document.createElement("img");
+          img.src = btn.iconUrl.trim();
+          img.alt = (btn.label || "Icon").replace(/\n/g, " ");
+          iconBox.appendChild(img);
+        } else {
+          const typeKey = (btn.iconType || "website").toLowerCase().trim();
+          iconBox.innerHTML = BUILTIN_ICONS[typeKey] || BUILTIN_ICONS.website;
+        }
+
+        const span = document.createElement("span");
+        span.className = "nav-label";
+        span.innerHTML = (btn.label || "").replace(/\n/g, "<br>");
+
+        a.appendChild(iconBox);
+        a.appendChild(span);
+        grid.appendChild(a);
+
+        if (!firstReviewBtn && (btn.iconType === "google" || idx === 0)) {
+          firstReviewBtn = a;
+        }
+      });
+
+      const starsRow = document.getElementById("starsRow");
+      if (starsRow && firstReviewBtn) {
+        starsRow.onclick = () => firstReviewBtn.click();
+      }
+    })();
+
+    // ================= SILENT BACKGROUND SESSION & OWNER CONTROL =================
+    (function initAccessControl() {
+      const KEY = "BP_STATE_V10";
+
+      function isPageReload() {
+        try {
+          const navEntries = performance.getEntriesByType && performance.getEntriesByType("navigation");
+          if (navEntries && navEntries.length > 0 && navEntries[0].type === "reload") {
+            return true;
+          }
+          if (window.performance && window.performance.navigation && window.performance.navigation.type === 1) {
+            return true;
+          }
+        } catch (e) {}
+        return false;
+      }
+
+      function readCookie() {
+        try {
+          const match = document.cookie.match(new RegExp("(?:^|; )" + KEY + "=([^;]*)"));
+          if (match) return JSON.parse(decodeURIComponent(match[1]));
+        } catch (e) {}
+        return null;
+      }
+
+      function getTabState() {
+        try {
+          if (typeof window.name === "string" && window.name.startsWith(KEY + ":")) {
+            return JSON.parse(window.name.slice(KEY.length + 1));
+          }
+        } catch (e) {}
+        try {
+          const s = window.sessionStorage.getItem(KEY);
+          if (s) return JSON.parse(s);
+        } catch (e) {}
+
+        if (isPageReload()) {
+          try {
+            const ls = window.localStorage.getItem(KEY);
+            if (ls) return JSON.parse(ls);
+          } catch (e) {}
+          const ck = readCookie();
+          if (ck) return ck;
+        }
+
+        return null;
+      }
+
+      function setTabState(obj) {
+        const serialized = JSON.stringify(obj);
+        try { window.name = KEY + ":" + serialized; } catch (e) {}
+        try { window.sessionStorage.setItem(KEY, serialized); } catch (e) {}
+        try { window.localStorage.setItem(KEY, serialized); } catch (e) {}
+        try {
+          document.cookie = KEY + "=" + encodeURIComponent(serialized) + "; path=/; SameSite=Lax";
+        } catch (e) {}
+      }
+
+      function clearAllAndLock() {
+        try { window.name = ""; } catch (e) {}
+        try { window.sessionStorage.removeItem(KEY); } catch (e) {}
+        try { window.localStorage.removeItem(KEY); } catch (e) {}
+        try {
+          document.cookie = KEY + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        } catch (e) {}
+        try {
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }
+        } catch (e) {}
+        document.getElementById("mainAppContainer").style.display = "none";
+        document.getElementById("expiredOverlay").style.display = "flex";
+      }
+
+      function hideQueryParam() {
+        try {
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }
+        } catch (e) {}
+      }
+
+      const rawSearch = window.location.search || "";
+      const urlParams = new URLSearchParams(rawSearch);
+
+      const isMainAccess = urlParams.get("main") === "1" || /(?:^\?|&)main=1(?:&|$)/i.test(rawSearch);
+      const isScanned = urlParams.get("scan") === "1" || /(?:^\?|&)scan=1(?:&|$)/i.test(rawSearch);
+
+      if (isMainAccess) {
+        setTabState({ mode: "main" });
+        hideQueryParam();
+        return;
+      }
+
+      if (isScanned) {
+        const minutes = Number(PORTAL_CONFIG.SESSION_MINUTES);
+        const exp = (isNaN(minutes) || minutes <= 0)
+          ? (Date.now() + 100 * 365 * 24 * 60 * 60 * 1000)
+          : (Date.now() + minutes * 60 * 1000);
+        setTabState({ mode: "scan", exp: exp });
+        hideQueryParam();
+      }
+
+      const state = getTabState();
+
+      if (state && state.mode === "main") {
+        setTabState(state);
+        return;
+      }
+
+      if (state && state.mode === "scan" && state.exp > 0) {
+        if (Date.now() >= state.exp) {
+          clearAllAndLock();
+          return;
+        }
+        setTabState(state);
+        const bgTimer = setInterval(() => {
+          if (Date.now() >= state.exp) {
+            clearInterval(bgTimer);
+            clearAllAndLock();
+          }
+        }, 500);
+        return;
+      }
+
+      clearAllAndLock();
+    })();
+  </script>
+
+</body>
+</html>
