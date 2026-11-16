@@ -1,1 +1,0 @@
-# Smart-nfc-card7
